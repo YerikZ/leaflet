@@ -1,4 +1,29 @@
+# Build output
 .build/
 Leaflet.app/
-*.o
-*.d
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Xcode / SwiftPM user data
+*.xcuserdata/
+xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+.swiftpm/
+
+# Editor
+.vscode/
+*.swp
+*.swo
+*~
+
+# Credentials / personal config
+.env
+.env.*
+*.pem
+*.p12
+*.mobileprovision
