@@ -59,7 +59,8 @@ struct MarkdownWebView: NSViewRepresentable {
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <style>
             :root { color-scheme: light dark; }
-            body {
+            body { margin: 0; padding: 0; }
+            #wrapper {
               box-sizing: border-box;
               max-width: 860px;
               margin: 0 auto;
@@ -68,8 +69,10 @@ struct MarkdownWebView: NSViewRepresentable {
             \(css)
           </style>
         </head>
-        <body class="markdown-body">
-          <div id="content"></div>
+        <body>
+          <div id="wrapper" class="markdown-body">
+            <div id="content"></div>
+          </div>
           <script>\(js)</script>
           <script>
             document.getElementById('content').innerHTML =
