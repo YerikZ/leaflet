@@ -12,7 +12,6 @@ struct ContentView: View {
         } detail: {
             if let doc = document.selectedDocument {
                 MarkdownWebView(markdownText: doc.content)
-                    .ignoresSafeArea()
                     .navigationTitle(doc.url.lastPathComponent)
             } else {
                 placeholder
