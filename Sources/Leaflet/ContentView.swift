@@ -3,6 +3,7 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
     @EnvironmentObject var document: DocumentModel
+    @AppStorage("darkMode") private var darkMode = false
     @State private var isTargeted = false
 
     var body: some View {
@@ -11,13 +12,14 @@ struct ContentView: View {
                 .environmentObject(document)
         } detail: {
             if let doc = document.selectedDocument {
-                MarkdownWebView(markdownText: doc.content)
+                MarkdownWebView(markdownText: doc.content, darkMode: darkMode)
                     .navigationTitle(doc.url.lastPathComponent)
             } else {
                 placeholder
                     .navigationTitle("Leaflet")
             }
         }
+        .preferredColorScheme(darkMode ? .dark : .light)
         .frame(minWidth: 640, minHeight: 400)
         .onDrop(of: [.fileURL], isTargeted: $isTargeted) { providers in
             document.handleDrop(providers: providers)
@@ -29,6 +31,16 @@ struct ContentView: View {
                     .padding(4)
                 : nil
         )
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    darkMode.toggle()
+                } label: {
+                    Image(systemName: darkMode ? "sun.max" : "moon")
+                }
+                .help(darkMode ? "Switch to light mode" : "Switch to dark mode")
+            }
+        }
     }
 
     private var placeholder: some View {

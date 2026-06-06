@@ -3,6 +3,7 @@ import WebKit
 
 struct MarkdownWebView: NSViewRepresentable {
     let markdownText: String
+    let darkMode: Bool
 
     func makeNSView(context: Context) -> WKWebView {
         let webView = WKWebView(frame: .zero)
@@ -12,12 +13,18 @@ struct MarkdownWebView: NSViewRepresentable {
     }
 
     func updateNSView(_ webView: WKWebView, context: Context) {
+        // Appearance change only — no reload needed; CSS prefers-color-scheme responds automatically
+        webView.appearance = darkMode ? NSAppearance(named: .darkAqua) : NSAppearance(named: .aqua)
+
+        guard markdownText != context.coordinator.lastText else { return }
+        context.coordinator.lastText = markdownText
         webView.loadHTMLString(buildHTML(), baseURL: Bundle.main.resourceURL)
     }
 
     func makeCoordinator() -> Coordinator { Coordinator() }
 
     class Coordinator: NSObject, WKNavigationDelegate {
+        var lastText = ""
         func webView(
             _ webView: WKWebView,
             decidePolicyFor action: WKNavigationAction,
