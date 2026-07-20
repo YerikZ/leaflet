@@ -26,15 +26,11 @@ A minimal macOS markdown viewer. Drop a `.md` file in, read it. No Xcode require
 git clone https://github.com/YerikZ/leaflet.git
 cd leaflet
 
-# 2. Download web dependencies (one-time)
-curl -sL https://cdn.jsdelivr.net/npm/marked/marked.min.js \
-     -o Sources/Leaflet/Resources/marked.min.js
-curl -sL https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.css \
-     -o Sources/Leaflet/Resources/github-markdown.css
-
-# 3. Build and install to /Applications
+# 2. Build and install to /Applications
 make install
 ```
+
+`marked.js` and `github-markdown-css` are vendored under `Sources/Leaflet/Resources/` (see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)), so no separate download step is needed.
 
 ## Usage
 
@@ -51,3 +47,7 @@ make install
 swift make-icon.swift   # writes Sources/Leaflet/Resources/AppIcon.icns
 make install            # rebuilds and reinstalls
 ```
+
+## License
+
+MIT — see [LICENSE](LICENSE). Vendored third-party assets are covered separately; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
